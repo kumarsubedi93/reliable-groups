@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-$^tg#qxmnr$n4o01mmx)fc+!fj(56cvs4ol+_cge2*29cp06@c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+   'env-9896623.ktm.yetiappcloud.com',
+   'nepalreliablegroup.com',
+   'www.nepalreliablegroup.com',
+   'localhost'
+]
 
 
 # Application definition
