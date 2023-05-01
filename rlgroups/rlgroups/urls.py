@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from website.views import error_404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,3 +26,11 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.STATIC_URL,  document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL,  document_root=settings.MEDIA_ROOT)
+
+admin.site.site_title = 'Reliable Groups'
+admin.site.site_header = 'Reliable Groups'
+admin.site.name = 'Reliable Groups'
+admin.site.app_index_template = 'Reliable Groups'
+
+handler404 = error_404

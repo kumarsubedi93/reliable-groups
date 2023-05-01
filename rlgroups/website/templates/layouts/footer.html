@@ -29,9 +29,7 @@
               <li><i class="bi bi-chevron-right"></i> <a href="#contact">Contact</a></li>
             </ul>
           </div>
-
-         
-
+          
           <div class="col-lg-4 col-md-12 footer-contact text-md-start">
             <h4>Contact Us</h4>
             <p>
@@ -67,6 +65,93 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+  <script>
+      var validator = $('form[id="feedbackform"]').validate({
+        rules: {
+          name: {
+            required:true,
+            maxlength:150
+          },
+          subject: {
+            required:true,
+            maxlength:200
+          },
+          email: {
+            required: true,
+            email: true,
+            maxlength:100
+          },
+          message:{
+            maxlength:2000
+          }
+        },
+        messages: {
+          name: {
+            required:'This field is required',
+            maxlength:'This field is not grater  than 150 character'
+          },
+          subject: {
+            required:'This field is required',
+            maxlength:'This field is not grater than 200 character'
+          },
+          email: {
+            required:'This field is required',
+            maxlength: 'This field is not grater than 200 character'
+          },
+          message:{
+            maxlength:'This field is not grater than 2000 character'
+          }
+        },
+      });
+
+
+      $(document).on('click', '#send-message', function(event){
+        event.preventDefault()
+        validator.form()
+        if (validator.valid()){
+          makeAjaxCall(validator) 
+        }
+    })
+
+    function makeAjaxCall(validator){
+           url = "{% url 'home' %}"
+            success_callback = function(res, xhr){
+                $("#message-box").html('')
+                $('#message-box').append(`
+                  <div class="alert alert-success">
+                    ${res.message}
+                  </div>
+                `)
+                validator.resetForm()
+                $('form[id="feedbackform"]')[0].reset()
+            }
+            error_callback = function(error, zxhr){
+            }
+            
+            let name = $('[name="name"]').val()
+            let email = $('[name="email"]').val()
+            let subject =  $('[name="subject"]').val()
+            let message  = $('[name="message"]').val()
+            let token = $('[name="csrfmiddlewaretoken"]').val()
+            $.ajax({
+              type:'POST',
+              url:url,
+              data:{
+                name:name,
+                email:email,
+                subject:subject,
+                message:message,
+                csrfmiddlewaretoken:token
+              },
+              success:success_callback,
+              error:error_callback
+            })
+    }
+    
+  </script>
 
 </body>
 

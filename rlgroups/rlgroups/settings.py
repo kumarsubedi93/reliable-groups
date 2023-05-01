@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
    'env-9896623.ktm.yetiappcloud.com',
    'nepalreliablegroup.com',
    'www.nepalreliablegroup.com',
-   'localhost'
+   'localhost',
+   '127.0.0.1'
 ]
 
 
@@ -124,6 +125,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+MEDIA_URL = 'uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 #STATICFILES_DIRS = [
 #   os.path.join(BASE_DIR, 'website/static')
